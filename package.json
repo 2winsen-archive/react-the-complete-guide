@@ -90,5 +90,8 @@
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "devDependencies": {
+    "eslint-plugin-babel": "^5.0.0"
   }
 }
