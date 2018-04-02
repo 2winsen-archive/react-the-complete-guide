@@ -172,7 +172,7 @@ module.exports = {
                 {
                   fallback: {
                     loader: require.resolve('style-loader'),
-                    options: {
+                    options: { 
                       hmr: false,
                     },
                   },
@@ -183,6 +183,8 @@ module.exports = {
                         importLoaders: 1,
                         minimize: true,
                         sourceMap: shouldUseSourceMap,
+                        modules: true,
+                        localIdentName: '[name]__[lcoal]__[hash:base64:5]'                        
                       },
                     },
                     {
