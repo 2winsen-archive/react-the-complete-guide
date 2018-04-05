@@ -21,17 +21,19 @@ const BuildControls = props => {
           label={c.label}
           onMoreClick={() => props.onIngredientAdded(c.type)}
           onLessClick={() => props.onIngredientRemoved(c.type)}
-          disabled={!props.ingredients[c.type]} />
+          disabled={props.disabled[c.type]} />
       )}
+      <button className={classes.OrderButton} disabled={!props.purchasable}>Order Now</button>
     </div>
   );
 };
 
-BuildControl.propTypes = {
+BuildControls.propTypes = {
   onIngredientAdded: PropTypes.func,
   onIngredientRemoved: PropTypes.func,
-  ingredients: PropTypes.object,
+  disabled: PropTypes.object,
   total: PropTypes.number,
+  purchasable: PropTypes.bool
 }
 
 export default BuildControls;
