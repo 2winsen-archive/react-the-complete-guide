@@ -46,7 +46,8 @@ class BurgerBuilder extends Component {
         <BuildControls
           onIngredientAdded={this.addIngredientHandler}
           onIngredientRemoved={this.removeIngredientHandler}
-          ingredients={{...this.state.ingredients}} />
+          ingredients={{ ...this.state.ingredients }}
+          total={this.state.total} />
       </Fragment>
     );
   }

@@ -14,6 +14,7 @@ const controls = [
 const BuildControls = props => {
   return (
     <div className={classes.BuildControls}>
+      <p>Current Price: <strong>{props.total.toFixed(2)}</strong></p>
       {controls.map(c =>
         <BuildControl
           key={c.label}
@@ -29,7 +30,8 @@ const BuildControls = props => {
 BuildControl.propTypes = {
   onIngredientAdded: PropTypes.func,
   onIngredientRemoved: PropTypes.func,
-  ingredients: PropTypes.object
+  ingredients: PropTypes.object,
+  total: PropTypes.number,
 }
 
 export default BuildControls;
