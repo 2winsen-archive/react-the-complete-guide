@@ -7,14 +7,21 @@ const BuildControl = props => {
   return (
     <div className={classes.BuildControl}>
       <div className={classes.Label}>{props.label}</div>
-      <button className={classes.Less}>Less</button>
-      <button className={classes.More} onClick={props.onMore}>More</button>
+      <button
+        className={classes.Less}
+        onClick={props.onLessClick}
+        disabled={props.disabled}>Less</button>
+      <button
+        className={classes.More}
+        onClick={props.onMoreClick}>More</button>
     </div>
   );
 };
 
 BuildControl.propTypes = {
-  onMore: PropTypes.func
+  onMoreClick: PropTypes.func,
+  onLessClick: PropTypes.func,
+  disabled: PropTypes.bool
 };
 
 export default BuildControl;

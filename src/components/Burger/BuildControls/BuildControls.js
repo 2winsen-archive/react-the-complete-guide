@@ -18,14 +18,18 @@ const BuildControls = props => {
         <BuildControl
           key={c.label}
           label={c.label}
-          onMore={() => props.onIngredientAdded(c.type)} />
+          onMoreClick={() => props.onIngredientAdded(c.type)}
+          onLessClick={() => props.onIngredientRemoved(c.type)}
+          disabled={!props.ingredients[c.type]} />
       )}
     </div>
   );
 };
 
 BuildControl.propTypes = {
-  onIngredientAdded: PropTypes.func
+  onIngredientAdded: PropTypes.func,
+  onIngredientRemoved: PropTypes.func,
+  ingredients: PropTypes.object
 }
 
 export default BuildControls;
