@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import classes from './BuildControls.css';
 import BuildControl from './BuildControl/BuildControl';
+import classes from './BuildControls.css';
 
 const controls = [
   { label: 'Salad', type: 'salad' },
@@ -14,13 +14,18 @@ const controls = [
 const BuildControls = props => {
   return (
     <div className={classes.BuildControls}>
-      {controls.map(c => <BuildControl key={c.label} label={c.label} />)}
+      {controls.map(c =>
+        <BuildControl
+          key={c.label}
+          label={c.label}
+          onMore={() => props.onIngredientAdded(c.type)} />
+      )}
     </div>
   );
 };
 
-BuildControls.propTypes = {
-
-};
+BuildControl.propTypes = {
+  onIngredientAdded: PropTypes.func
+}
 
 export default BuildControls;
