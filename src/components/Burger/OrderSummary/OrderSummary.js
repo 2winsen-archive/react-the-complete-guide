@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Fragment from '../../../hoc/Fragment';
+import Fragment from '../../../hoc/Fragment/Fragment';
 import Button from '../../UI/Button/Button';
 
 const OrderSummary = (props) => {

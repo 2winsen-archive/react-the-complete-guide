@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Fragment from './../../hoc/Fragment';
+import Fragment from './../../hoc/Fragment/Fragment';
 
 import Burger from './../../components/Burger/Burger';
 import BuildControls from './../../components/Burger/BuildControls/BuildControls';
