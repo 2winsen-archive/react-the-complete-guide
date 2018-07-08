@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
+
+import ContactData from './ContactData/ContactData';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
 
 class Checkout extends Component {
@@ -15,6 +18,7 @@ class Checkout extends Component {
     const query = new URLSearchParams(this.props.location.search);
     const ingredients = {};
     for (let param of query.entries()) {
+      // ['salad', '1']
       ingredients[param[0]] = +param[1];
     }
     this.setState({ ingredients });
@@ -36,6 +40,7 @@ class Checkout extends Component {
           onCheckoutCancelled={this.onCheckoutCancelledHandler}
           onCheckoutContinued={this.onCheckoutContinuedHandler}
         />
+        <Route path={this.props.match.path + '/contact-data'} component={ContactData} />
       </div>
     );
   }
