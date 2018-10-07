@@ -56,7 +56,7 @@ class ContactData extends Component {
             { value: 'cheapest', displayValue: 'Cheapest' }
           ]
         },
-        value: ''
+        value: 'cheapest'
       }
     },
     loading: false
@@ -67,8 +67,11 @@ class ContactData extends Component {
     this.setState({
       loading: true
     });
+    const orderData = Object.entries(this.state.orderForm)
+      .reduce((acc, [key, val]) => ({ ...acc, [key]: val.value }), {});
     const order = {
       ingredients: this.props.ingredients,
+      orderData,
       total: this.props.total
     }
     axios.post('/orders.json', order)
@@ -106,7 +109,7 @@ class ContactData extends Component {
       });
     }
     let form = (
-      <form>
+      <form onSubmit={this.orderHandler}>
         {formElementsArray.map(formElement => (
           <Input
             key={formElement.id}
