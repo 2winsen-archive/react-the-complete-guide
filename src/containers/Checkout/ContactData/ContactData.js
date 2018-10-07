@@ -14,7 +14,11 @@ class ContactData extends Component {
           type: 'text',
           placeholder: 'Your Name'
         },
-        value: ''
+        value: '',
+        validation: {
+          isRequired: true
+        },
+        valid: false
       },
       street: {
         elementType: 'input',
@@ -22,7 +26,11 @@ class ContactData extends Component {
           type: 'text',
           placeholder: 'Street'
         },
-        value: ''
+        value: '',
+        validation: {
+          isRequired: true
+        },
+        valid: false
       },
       zipCode: {
         elementType: 'input',
@@ -30,7 +38,13 @@ class ContactData extends Component {
           type: 'text',
           placeholder: 'ZIP Code'
         },
-        value: ''
+        value: '',
+        validation: {
+          isRequired: true,
+          minLength: 5,
+          maxLength: 5
+        },
+        valid: false
       },
       country: {
         elementType: 'input',
@@ -38,7 +52,11 @@ class ContactData extends Component {
           type: 'text',
           placeholder: 'Country'
         },
-        value: ''
+        value: '',
+        validation: {
+          isRequired: true
+        },
+        valid: false
       },
       email: {
         elementType: 'input',
@@ -46,7 +64,11 @@ class ContactData extends Component {
           type: 'email',
           placeholder: 'Your E-Mail'
         },
-        value: ''
+        value: '',
+        validation: {
+          isRequired: true
+        },
+        valid: false
       },
       deliveryMethod: {
         elementType: 'select',
@@ -89,15 +111,37 @@ class ContactData extends Component {
   }
 
   changeHandler = (event, formIdentifier) => {
+    const { orderForm } = this.state;
+    const formItem = orderForm[formIdentifier];
+    const { value } = event.target;
     this.setState({
       orderForm: {
-        ...this.state.orderForm,
+        ...orderForm,
         [formIdentifier]: {
-          ...this.state.orderForm[formIdentifier],
-          value: event.target.value
+          ...formItem,
+          value,
+          valid: this.checkValidity(formItem.validation, value)
         }
       }
+    }, () => {
+      console.log(this.state.orderForm);
     });
+
+  }
+
+  checkValidity = (rules, value) => {
+    let isValid = false;
+    if (rules.isRequired) {
+      isValid = value.trim() !== '';
+    }
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength;
+    }
+    if (rules.maxLength) {
+      isValid = value.length <= rules.maxLength;
+    }
+
+    return isValid;
   }
 
   render() {
