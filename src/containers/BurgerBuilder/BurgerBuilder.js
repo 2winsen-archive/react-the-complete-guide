@@ -13,8 +13,6 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 class BurgerBuilder extends Component {
   state = {
-    total: 4,
-    purchasable: false,
     purchasing: false,
     loading: false,
     error: false
@@ -26,30 +24,11 @@ class BurgerBuilder extends Component {
     //   .catch(error => this.setState({ error }));
   }
 
-  updatePurchaseState = () => {
-    const sum = Object.values(this.props.ings)
+  updatePurchaseState = (ingredients) => {
+    const sum = Object.values(ingredients)
       .reduce((sum, val) => sum + val);
-    this.setState({
-      purchasable: sum > 0
-    });
+    return sum > 0;
   }
-
-  // addIngredientHandler = (type) => {
-  //   this.setState((prevState) => ({
-  //     ingredients: { ...prevState.ingredients, [type]: prevState.ingredients[type] + 1 },
-  //     total: prevState.total += INGREDIENTS_PRICES[type]
-  //   }), () => this.updatePurchaseState());
-  // }
-
-  // removeIngredientHandler = (type) => {
-  //   if (this.state.ingredients[type] === 0) {
-  //     return;
-  //   }
-  //   this.setState((prevState) => ({
-  //     ingredients: { ...prevState.ingredients, [type]: prevState.ingredients[type] - 1 },
-  //     total: prevState.total -= INGREDIENTS_PRICES[type]
-  //   }), () => this.updatePurchaseState());
-  // }
 
   purchaseHandler = () => {
     this.setState({ purchasing: true });
@@ -89,7 +68,7 @@ class BurgerBuilder extends Component {
             onIngredientRemoved={this.props.onIngredientRemoved}
             disabled={disabledInfo}
             total={this.props.price}
-            purchasable={this.state.purchasable}
+            purchasable={this.updatePurchaseState(this.props.ings)}
             onPurchase={this.purchaseHandler} />
         </Fragment>
       )
@@ -123,8 +102,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIngredientAdded: (ingName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingName}),
-    onIngredientRemoved: (ingName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName})
+    onIngredientAdded: (ingName) => dispatch({ type: actionTypes.ADD_INGREDIENT, ingredientName: ingName }),
+    onIngredientRemoved: (ingName) => dispatch({ type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingName })
   };
 }
 
