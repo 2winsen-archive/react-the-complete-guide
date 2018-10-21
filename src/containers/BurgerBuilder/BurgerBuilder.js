@@ -11,13 +11,6 @@ import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
-const INGREDIENTS_PRICES = {
-  salad: 0.4,
-  bacon: 0.7,
-  cheese: 0.5,
-  meat: 1.3
-}
-
 class BurgerBuilder extends Component {
   state = {
     total: 4,
@@ -95,13 +88,13 @@ class BurgerBuilder extends Component {
             onIngredientAdded={this.props.onIngredientAdded}
             onIngredientRemoved={this.props.onIngredientRemoved}
             disabled={disabledInfo}
-            total={this.state.total}
+            total={this.props.price}
             purchasable={this.state.purchasable}
             onPurchase={this.purchaseHandler} />
         </Fragment>
       )
       orderSummary = <OrderSummary
-        total={this.state.total}
+        total={this.props.price}
         ingredients={this.props.ings}
         onPurchaseCancel={this.purchaseCancelHandler}
         onPurchaseContinue={this.purchaseContinueHandler} />
@@ -123,7 +116,8 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    ings: state.ingredients
+    ings: state.ingredients,
+    price: state.totalPrice
   };
 }
 
