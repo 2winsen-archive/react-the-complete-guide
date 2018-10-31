@@ -2,9 +2,10 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import { API_KEY } from '../../api';
 
-export const authSuccess = (authData) => ({
+export const authSuccess = (idToken, userId) => ({
   type: actionTypes.AUTH_SUCCESS,
-  authData
+  idToken,
+  userId
 });
 
 export const authFail = (error) => ({
@@ -31,7 +32,7 @@ export const auth = (email, password, isSignup) => {
     axios.post(url, authData)
       .then(response => {
         console.log(response);
-        dispatch(authSuccess(response.data));
+        dispatch(authSuccess(response.data.idToken, response.data.localId));
       })
       .catch(error => {
         console.log(error);
