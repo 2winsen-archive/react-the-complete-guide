@@ -29,3 +29,9 @@
 .Logo {
   height: 11%;
 }
+
+.Logo img {
+  max-width: 125px;
+  height: auto;
+  width: 100%;
+}
