@@ -7,7 +7,8 @@
         "browser": true,
         "commonjs": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "jest/globals": true
     },
     "parser": "babel-eslint",
     "parserOptions": {
@@ -29,6 +30,7 @@
     "plugins": [
         "babel",
         "react",
-        "import"
+        "import",
+        "jest"
     ]
 }
