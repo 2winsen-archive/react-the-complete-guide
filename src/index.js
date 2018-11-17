@@ -12,7 +12,7 @@ import burgerBuilderReducer from './store/reducers/burgerBuilder';
 import orderReducer from './store/reducers/order';
 import authReducer from './store/reducers/auth';
 import thunk from 'redux-thunk';
-import { watchAuth } from './store/sagas';
+import { watchAuth, watchBurgerBuilder } from './store/sagas';
 
 
 const rootReducer = combineReducers({
@@ -30,7 +30,8 @@ const store = createStore(rootReducer, composeEnhancers(
   applyMiddleware(thunk, sagaMiddleware)
 ))
 
-sagaMiddleware.run(watchAuth)
+sagaMiddleware.run(watchAuth);
+sagaMiddleware.run(watchBurgerBuilder);
 
 const app = (
   <Provider store={store}>
