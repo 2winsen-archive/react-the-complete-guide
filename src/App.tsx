@@ -1,24 +1,29 @@
-import React, { Component } from 'react';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import * as React from 'react';
 import { connect } from 'react-redux';
+import { Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
+import { Dispatch } from 'redux';
 
-import Layout from './hoc/Layout/Layout';
-import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import Logout from './containers/Auth/Logout/Logout';
-import * as actions from './store/actions';
+import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
+import Layout from './hoc/Layout/Layout';
+import * as actions from './store/actions';
+import { State } from './store/reducers';
 
 const asyncAuth = asyncComponent(() => import('./containers/Auth/Auth'));
 const asyncCheckout = asyncComponent(() => import('./containers/Checkout/Checkout'));
 const asyncOrders = asyncComponent(() => import('./containers/Orders/Orders'));
+interface Props extends RouteComponentProps {
+  isAuthenticated: boolean,
+  onTryAuthSignup(): void,
+}
 
-
-class App extends Component {
-  componentDidMount() {
+class App extends React.Component<Props, {}> {
+  public componentDidMount() {
     this.props.onTryAuthSignup();
   }
 
-  render() {
+  public render() {
     let routes = (
       <Switch>
         <Route path="/auth" component={asyncAuth} />
@@ -49,13 +54,13 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: State) => {
   return {
     isAuthenticated: state.auth.token !== null
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     onTryAuthSignup: () => dispatch(actions.authCheckState())
   };

@@ -4,26 +4,18 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { applyMiddleware, compose, createStore } from 'redux';
 import createSageMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
+import { rootReducer } from './store/reducers';
 
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import authReducer from './store/reducers/auth';
-import burgerBuilderReducer from './store/reducers/burgerBuilder';
-import orderReducer from './store/reducers/order';
 import { watchAuth, watchBurgerBuilder, watchOrder } from './store/sagas';
 
 declare global {
   interface Window { __REDUX_DEVTOOLS_EXTENSION_COMPOSE__: any; }
 }
-
-const rootReducer = combineReducers({
-  auth: authReducer,
-  burgerBuilder: burgerBuilderReducer,
-  order: orderReducer,
-});
 
 const sagaMiddleware = createSageMiddleware();
 

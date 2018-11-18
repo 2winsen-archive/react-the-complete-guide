@@ -16,7 +16,8 @@
       true,
       "never-prefix"
     ],
-    "no-console": [true, "warn"]
+    "no-console": [true, "warn"],
+    "jsx-boolean-value": false
   },
   "jsRules": {
     "object-literal-sort-keys": false,
