@@ -22,12 +22,12 @@ export class BurgerBuilder extends Component {
 
   updatePurchaseState = (ingredients) => {
     const sum = Object.values(ingredients)
-      .reduce((sum, val) => sum + val);
+      .reduce((agg, curr) => agg + curr);
     return sum > 0;
   }
 
   purchaseHandler = () => {
-    if (this.props.isAuthenticated) {      
+    if (this.props.isAuthenticated) {
       this.setState({ purchasing: true });
     } else {
       this.props.onSetAuthRedirectPath('/checkout');
@@ -35,18 +35,18 @@ export class BurgerBuilder extends Component {
     }
   }
 
-  purchaseCancelHandler = () => {    
+  purchaseCancelHandler = () => {
     this.setState({ purchasing: false });
   }
 
   purchaseContinueHandler = () => {
-    this.props.onInitPurchase(); 
+    this.props.onInitPurchase();
     this.props.history.push('/checkout');
   }
 
   render() {
     const disabledInfo = { ...this.props.ings };
-    for (const key in disabledInfo) {
+    for (const key of Object.keys(disabledInfo)) {
       disabledInfo[key] = disabledInfo[key] === 0
     }
     let orderSummary;
