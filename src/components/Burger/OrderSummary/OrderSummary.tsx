@@ -1,9 +1,17 @@
-import React from 'react';
+import * as React from 'react';
+import { Ingredients } from 'src/models/Ingredients';
 
 import Fragment from '../../../hoc/Fragment/Fragment';
 import Button from '../../UI/Button/Button';
 
-const OrderSummary = (props) => {
+interface Props extends React.Props<any> {
+  ingredients: Ingredients,
+  onPurchaseCancel: () => void,
+  onPurchaseContinue: () => void,
+  total: number
+}
+
+const OrderSummary = (props: Props) => {
   const summaryIngredients = Object.keys(props.ingredients)
     .map(key => (
       <li key={key}>

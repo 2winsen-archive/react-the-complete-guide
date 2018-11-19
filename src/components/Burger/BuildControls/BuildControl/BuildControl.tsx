@@ -1,9 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
-import classes from './BuildControl.css';
+const classes = require('./BuildControl.css');
 
-const BuildControl = props => {
+interface Props extends React.Props<any> {
+  onMoreClick: () => void,
+  onLessClick: () => void,
+  disabled: boolean,
+  label: string
+}
+
+const BuildControl = (props: Props) => {
   return (
     <div className={classes.BuildControl}>
       <div className={classes.Label}>{props.label}</div>
@@ -16,12 +22,6 @@ const BuildControl = props => {
         onClick={props.onMoreClick}>More</button>
     </div>
   );
-};
-
-BuildControl.propTypes = {
-  onMoreClick: PropTypes.func,
-  onLessClick: PropTypes.func,
-  disabled: PropTypes.bool
 };
 
 export default BuildControl;

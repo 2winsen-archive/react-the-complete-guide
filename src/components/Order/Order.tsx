@@ -1,8 +1,14 @@
-import React from 'react';
+import * as React from 'react';
+import { Ingredients } from 'src/models/Ingredients';
 
-import classes from './Order.css';
+const classes = require('./Order.css');
 
-const Order = ({ ingredients, total }) => {
+interface Props extends React.Props<any> {
+  ingredients: Ingredients,
+  total: string
+}
+
+const Order: React.StatelessComponent<Props> = ({ ingredients, total }) => {
   const ingredientsArr = [];
   for (const key in ingredients) {
     if (ingredients.hasOwnProperty(key)) {

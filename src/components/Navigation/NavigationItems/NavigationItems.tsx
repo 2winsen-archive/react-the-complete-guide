@@ -1,10 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 
 import NavigationItem from './NavigationItem/NavigationItem';
 
-import classes from './NavigationItems.css';
+const classes = require('./NavigationItems.css');
 
-const NavigationItems = props => (
+interface Props extends React.Props<any> {
+  isAuthenticated: boolean
+}
+
+const NavigationItems = (props: Props) => (
   <ul className={classes.NavigationItems}>
     <NavigationItem link="/" exact>Burger Builder</NavigationItem>
     {props.isAuthenticated ? <NavigationItem link="/orders">Orders</NavigationItem> : null}

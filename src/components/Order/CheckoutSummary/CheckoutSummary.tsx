@@ -1,10 +1,18 @@
-import React from 'react';
+import * as React from 'react';
+
 import Burger from '../../Burger/Burger';
 import Button from '../../UI/Button/Button';
+import { Ingredients } from './../../../models/Ingredients';
 
-import classes from './CheckoutSummary.css';
+const classes = require('./CheckoutSummary.css');
 
-const CheckoutSummary = ({ ingredients, onCheckoutCancelled, onCheckoutContinued }) => {
+interface Props extends React.Props<any> {
+  ingredients: Ingredients,
+  onCheckoutCancelled: () => void,
+  onCheckoutContinued: () => void
+}
+
+const CheckoutSummary: React.StatelessComponent<Props> = ({ ingredients, onCheckoutCancelled, onCheckoutContinued }) => {
   return (
     <div className={classes.CheckoutSummary}>
       <h1>Hope it tastes well!</h1>

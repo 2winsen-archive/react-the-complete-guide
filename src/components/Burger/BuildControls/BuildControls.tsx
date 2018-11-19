@@ -1,8 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 
 import BuildControl from './BuildControl/BuildControl';
-import classes from './BuildControls.css';
+
+const classes = require('./BuildControls.css');
+
+interface Props extends React.Props<any> {
+  onIngredientAdded: (event: any) => void,
+  onIngredientRemoved: (event: any) => void,
+  total: number,
+  purchasable: boolean,
+  onPurchase: () => void,
+  isAuthenticated: boolean,
+  disabled: any
+}
 
 const controls = [
   { label: 'Salad', type: 'salad' },
@@ -11,7 +21,10 @@ const controls = [
   { label: 'Meat', type: 'meat' },
 ]
 
-const BuildControls = props => {
+const BuildControls = (props: Props) => {
+  const moreClickHandler = (control: any) => () => props.onIngredientAdded(control.type);
+  const lessClickHandler = (control: any) => () => props.onIngredientRemoved(control.type);
+
   return (
     <div className={classes.BuildControls}>
       <p>Current Price: <strong>{props.total.toFixed(2)}</strong></p>
@@ -19,8 +32,8 @@ const BuildControls = props => {
         <BuildControl
           key={c.label}
           label={c.label}
-          onMoreClick={() => props.onIngredientAdded(c.type)}
-          onLessClick={() => props.onIngredientRemoved(c.type)}
+          onMoreClick={moreClickHandler(c)}
+          onLessClick={lessClickHandler(c)}
           disabled={props.disabled[c.type]} />
       )}
       <button
@@ -30,14 +43,5 @@ const BuildControls = props => {
     </div>
   );
 };
-
-BuildControls.propTypes = {
-  onIngredientAdded: PropTypes.func,
-  onIngredientRemoved: PropTypes.func,
-  disabled: PropTypes.object,
-  total: PropTypes.number,
-  purchasable: PropTypes.bool,
-  onPurchase: PropTypes.func
-}
 
 export default BuildControls;

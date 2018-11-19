@@ -1,20 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { IngredientName } from 'src/models/IngredientName';
+import { Ingredients } from 'src/models/Ingredients';
 
-import classes from './Burger.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
-const Burger = props => {
+const classes = require('./Burger.css');
+
+interface Props extends React.Props<any> {
+  ingredients: Ingredients
+}
+
+const Burger = (props: Props) => {
   let transformedIngredients = Object.keys(props.ingredients)
-    .map(ingredientKey => {
-      return [...Array(props.ingredients[ingredientKey])]
+    .map((ingredientKey: IngredientName) => {
+      const sameIngredients = [...Array(props.ingredients[ingredientKey])].fill(0);
+      return sameIngredients
         .map((el, index) =>
           <BurgerIngredient key={ingredientKey + index} type={ingredientKey} />
         );
     })
     .reduce((acc, curr) => acc.concat(curr), [])
   if (transformedIngredients.length === 0) {
-    transformedIngredients = <p>Please start adding ingredients</p>
+    transformedIngredients = [<p key="placeholder">Please start adding ingredients</p>]
   }
   return (
     <div className={classes.Burger}>
@@ -23,10 +30,6 @@ const Burger = props => {
       <BurgerIngredient type="bread-bottom" />
     </div>
   );
-};
-
-Burger.propTypes = {
-  ingredients: PropTypes.object.isRequired
 };
 
 export default Burger;

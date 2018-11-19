@@ -1,12 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 
 import burgerLogo from '../../assets/images/burger-logo.png';
 
-import classes from './Logo.css';
+const classes = require('./Logo.css');
 
 const Logo = () => (
   <div className={classes.Logo}>
-    <img src={burgerLogo} alt="MyBurgr" />
+    <img src={burgerLogo} alt="MyBurger" />
   </div>
 );
 

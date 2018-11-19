@@ -1,9 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import classes from './NavigationItem.css';
+const classes = require('./NavigationItem.css');
 
-const NavigationItem = (props) => (
+interface Props extends React.Props<any> {
+  link: string,
+  exact?: boolean
+}
+
+const NavigationItem = (props: Props) => (
   <li className={classes.NavigationItem}>
     <NavLink to={props.link} activeClassName={classes.active} exact={props.exact}>{props.children}</NavLink>
   </li>
