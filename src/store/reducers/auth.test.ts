@@ -1,9 +1,9 @@
-import reducer from './auth';
 import * as actionTypes from '../actions/actionTypes';
+import reducer, { State } from './auth';
 
 describe('auth reducer', () => {
   it('should return the initial state', () => {
-    expect(reducer(undefined, {})).toEqual({
+    expect(reducer(undefined, { type: 'ANY_ACTION' })).toEqual({
       token: null,
       userId: null,
       error: null,
@@ -13,7 +13,7 @@ describe('auth reducer', () => {
   });
 
   it('should return the initial state', () => {
-    const state = {
+    const state: State = {
       token: null,
       userId: null,
       error: null,

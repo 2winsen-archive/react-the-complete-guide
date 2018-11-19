@@ -8,11 +8,12 @@ import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
 import Layout from './hoc/Layout/Layout';
 import * as actions from './store/actions';
-import { State } from './store/reducers';
+import { AppState } from './store/reducers';
 
 const asyncAuth = asyncComponent(() => import('./containers/Auth/Auth'));
 const asyncCheckout = asyncComponent(() => import('./containers/Checkout/Checkout'));
 const asyncOrders = asyncComponent(() => import('./containers/Orders/Orders'));
+
 interface Props extends RouteComponentProps {
   isAuthenticated: boolean,
   onTryAuthSignup(): void,
@@ -54,7 +55,7 @@ class App extends React.Component<Props, {}> {
   }
 }
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = (state: AppState) => {
   return {
     isAuthenticated: state.auth.token !== null
   };

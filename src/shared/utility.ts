@@ -1,11 +1,13 @@
-export const updateObject = (oldObject, updatedProperties) => {
+import { ValidationRules } from './../models/ValidationRules';
+
+export const updateObject = (oldObject: any, updatedProperties: any): any => {
   return {
     ...oldObject,
     ...updatedProperties
   }
 }
 
-export const checkValidity = (rules, value) => {
+export const checkValidity = (rules: ValidationRules, value: string): boolean => {
   let isValid = true;
   if (rules.isRequired) {
     isValid = value.trim() !== '' && isValid;

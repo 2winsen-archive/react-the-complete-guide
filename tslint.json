@@ -16,11 +16,19 @@
       true,
       "never-prefix"
     ],
-    "no-console": [true, "warn"],
-    "jsx-boolean-value": false
+    "no-console": [
+      true,
+      "warn"
+    ],
+    "jsx-boolean-value": false,
+    "object-literal-sort-keys": false,
+    "no-var-requires": false
   },
   "jsRules": {
     "object-literal-sort-keys": false,
-    "no-console": [true, "warn"]
+    "no-console": [
+      true,
+      "warn"
+    ]
   }
 }
