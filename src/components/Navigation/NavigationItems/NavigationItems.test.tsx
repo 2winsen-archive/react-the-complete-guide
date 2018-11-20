@@ -1,14 +1,14 @@
-import React from 'react';
-import { configure, shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { configure, shallow, ShallowWrapper } from 'enzyme';
+import * as Adapter from 'enzyme-adapter-react-16';
+import * as React from 'react';
 
-import NavigationItems from './NavigationItems';
 import NavigationItem from './NavigationItem/NavigationItem';
+import NavigationItems from './NavigationItems';
 
 configure({ adapter: new Adapter() });
 
 describe('<NavigationItem />', () => {
-  let wrapper;
+  let wrapper: ShallowWrapper;
   beforeEach(() => {
     wrapper = shallow(<NavigationItems />);
   });

@@ -2,9 +2,10 @@ import { Action } from 'redux';
 
 import { updateObject } from '../../shared/utility';
 import * as actionTypes from '../actions/actionTypes';
+import { Ingredients } from './../../models/Ingredients';
 
 export interface State {
-  ingredients: string,
+  ingredients: Ingredients,
   totalPrice: number,
   error: boolean,
   building: boolean

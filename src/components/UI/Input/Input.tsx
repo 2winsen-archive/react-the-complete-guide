@@ -1,27 +1,18 @@
 import * as React from 'react';
+import { ElementConfig } from 'src/models/form/ElementConfig';
+import { ElementType } from 'src/models/form/ElementType';
 
 const classes = require('./Input.css');
 
-export type ElementType = 'input' | 'textarea' | 'select';
-
-interface ElementConfig extends React.Props<any> {
-  type: string,
-  placeholder: string,
-  options: Array<{
-    displayValue: string,
-    value: string
-  }>
-}
-
 interface Props extends React.Props<any> {
   elementType: ElementType,
+  elementConfig: ElementConfig,
+  value: string,
   invalid: boolean,
   shouldValidate: boolean,
   touched: boolean,
-  elementConfig: ElementConfig,
-  value: string,
-  label: string,
-  onChange: () => void
+  onChange: (event: any) => void,
+  label?: string,
 }
 
 const Input = (props: Props) => {

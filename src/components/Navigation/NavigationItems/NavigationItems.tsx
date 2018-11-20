@@ -5,7 +5,7 @@ import NavigationItem from './NavigationItem/NavigationItem';
 const classes = require('./NavigationItems.css');
 
 interface Props extends React.Props<any> {
-  isAuthenticated: boolean
+  isAuthenticated?: boolean
 }
 
 const NavigationItems = (props: Props) => (

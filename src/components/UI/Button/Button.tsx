@@ -5,7 +5,7 @@ const classes = require('./Button.css');
 interface Props extends React.Props<any> {
   disabled?: boolean,
   btnType: string,
-  onClick: () => void
+  onClick?: (event: any) => void
 }
 
 const Button = (props: Props) => {

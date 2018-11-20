@@ -1,16 +1,45 @@
-import React, { Component } from 'react';
-import Button from '../../../components/UI/Button/Button';
-import classes from './ContactData.css';
-import Spinner from '../../../components/UI/Spinner/Spinner';
-import Input from '../../../components/UI/Input/Input';
+import * as React from 'react';
 import { connect } from 'react-redux';
-import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
-import axios from '../../../axios-orders';
-import * as actions from '../../../store/actions';
-import { checkValidity } from '../../../shared/utility';
+import { Dispatch } from 'redux';
 
-class ContactData extends Component {
-  state = {
+import axios from '../../../axios-orders';
+import Button from '../../../components/UI/Button/Button';
+import Input from '../../../components/UI/Input/Input';
+import Spinner from '../../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import { checkValidity } from '../../../shared/utility';
+import * as actions from '../../../store/actions';
+import { Element } from './../../../models/form/Element';
+import { Ingredients } from './../../../models/Ingredients';
+import { Order } from './../../../models/Order';
+import { AppState } from './../../../store/reducers';
+
+const classes = require('./ContactData.css');
+
+interface Props extends React.Props<any> {
+  ings: Ingredients,
+  price: number,
+  userId: string,
+  token: string,
+  loading: boolean,
+  onOrderBurger: (order: Order, token: string) => void,
+}
+
+interface State {
+  orderForm: {
+    name: Element,
+    street: Element,
+    zipCode: Element,
+    country: Element,
+    email: Element,
+    deliveryMethod: Element,
+  },
+  formIsValid: boolean,
+  loading: boolean
+}
+
+class ContactData extends React.Component<Props, State> {
+  public state: State = {
     orderForm: {
       name: {
         elementType: 'input',
@@ -93,10 +122,11 @@ class ContactData extends Component {
         valid: true,
       }
     },
-    formIsValid: false
+    formIsValid: false,
+    loading: false,
   }
 
-  orderHandler = (event) => {
+  public orderHandler = (event: any) => {
     event.preventDefault();
     this.setState({
       loading: true
@@ -106,13 +136,13 @@ class ContactData extends Component {
     const order = {
       ingredients: this.props.ings,
       orderData,
-      total: this.props.price,
+      total: this.props.price.toString(),
       userId: this.props.userId
     }
     this.props.onOrderBurger(order, this.props.token);
   }
 
-  changeHandler = (event, formIdentifier) => {
+  public changeHandler = (formIdentifier: string) => (event: any) => {
     const { orderForm } = this.state;
     const formItem = orderForm[formIdentifier];
     const { value } = event.target;
@@ -125,7 +155,7 @@ class ContactData extends Component {
         touched: true
       }
     };
-    let formIsValid = Object.entries(updatedOrderForm)
+    const formIsValid = Object.entries(updatedOrderForm)
       .reduce((acc, [, { valid }]) => acc && valid, true);
     this.setState({
       orderForm: updatedOrderForm,
@@ -133,9 +163,9 @@ class ContactData extends Component {
     });
   }
 
-  render() {
+  public render() {
     const formElementsArray = [];
-    for (let key of Object.keys(this.state.orderForm)) {
+    for (const key of Object.keys(this.state.orderForm)) {
       formElementsArray.push({
         id: key,
         config: this.state.orderForm[key]
@@ -152,7 +182,7 @@ class ContactData extends Component {
             invalid={!formElement.config.valid}
             shouldValidate={formElement.config.validation}
             touched={formElement.config.touched}
-            onChange={(event) => this.changeHandler(event, formElement.id)} />
+            onChange={this.changeHandler(formElement.id)} />
         ))}
         <Button
           btnType="Success"
@@ -172,7 +202,7 @@ class ContactData extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: AppState) => {
   return {
     ings: state.burgerBuilder.ingredients,
     price: state.burgerBuilder.totalPrice,
@@ -182,9 +212,9 @@ const mapStateToProps = state => {
   };
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
-    onOrderBurger: (order, token) => dispatch(actions.purchaseBurger(order, token))
+    onOrderBurger: (order: Order, token: string) => dispatch(actions.purchaseBurger(order, token))
   };
 }
 

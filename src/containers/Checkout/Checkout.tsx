@@ -1,20 +1,29 @@
-import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import * as React from 'react';
 import { connect } from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
 
-import ContactData from './ContactData/ContactData';
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
+import { Ingredients } from './../../models/Ingredients';
+import { AppState } from './../../store/reducers';
+import ContactData from './ContactData/ContactData';
 
-class Checkout extends Component {
-  onCheckoutCancelledHandler = () => {
+interface Props {
+  ings: Ingredients,
+  history: any,
+  purchased: boolean,
+  match: any,
+}
+
+class Checkout extends React.Component<Props> {
+  public onCheckoutCancelledHandler = () => {
     this.props.history.goBack();
   }
 
-  onCheckoutContinuedHandler = () => {
+  public onCheckoutContinuedHandler = () => {
     this.props.history.replace('/checkout/contact-data');
   }
 
-  render() {
+  public render() {
     let summary = <Redirect to="/" />;
     if (this.props.ings) {
       const purchasedRedirect = this.props.purchased ? <Redirect to="/" /> : null;
@@ -36,7 +45,7 @@ class Checkout extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppState) => {
   return {
     ings: state.burgerBuilder.ingredients,
     purchased: state.order.purchased
